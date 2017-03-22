@@ -1,0 +1,25 @@
+{% import_yaml "ntp/defaults.yaml" as default_settings %}
+
+{% set os_family_map = salt['grains.filter_by']({
+    'Debian': {
+        'package': 'ntp'
+        'service': 'ntp',
+        'config': '/etc/ntp.conf',
+    },
+    'RedHat': {
+        'package': 'ntp',
+        'service': 'ntpd',
+        'config': '/etc/ntp.conf',
+    },
+  },
+  grain='os_family',
+  merge=salt['pillar.get']('ntp:lookup'))
+%}
+
+{% do default_settings.ntp.update(os_family_map) %}
+
+{% set ntp = salt['pillar.get'](
+    'ntp',
+    default=default_settings.ntp,
+    merge=True
+%}
