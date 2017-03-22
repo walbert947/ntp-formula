@@ -4,14 +4,14 @@ ntp:
   pkg.installed:
     - name: {{ ntp.package }}
 
-  file.managed:
-    - name: {{ ntp.config }}
-    - template: jinja
-    - source: salt://ntp/files/ntp.conf
-    - context:
-      config: {{ salt['pillar.get']('ntp', {}) }}
-    - require:
-      - pkg: {{ ntp.package }}
+#  file.managed:
+#    - name: {{ ntp.config }}
+#    - template: jinja
+#    - source: salt://ntp/files/ntp.conf
+#    - context:
+#      config: {{ salt['pillar.get']('ntp', {}) }}
+#    - require:
+#      - pkg: {{ ntp.package }}
   
   # Daemon launch options
   # Key config
@@ -21,5 +21,5 @@ ntp:
     - enable: true
     - require:
       - pkg: {{ ntp.package }}
-    - watch:
-      - file: {{ ntp.config }}
+#    - watch:
+#      - file: {{ ntp.config }}
