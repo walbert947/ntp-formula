@@ -5,11 +5,13 @@
         'package': 'ntp',
         'service': 'ntp',
         'config': '/etc/ntp.conf',
+        'driftfile': '/var/lib/ntp/ntp.drift',
     },
     'RedHat': {
         'package': 'ntp',
         'service': 'ntpd',
         'config': '/etc/ntp.conf',
+        'driftfile': '/var/lib/ntp/drift',
     },
   },
   grain='os_family',
