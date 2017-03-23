@@ -17,10 +17,10 @@
   merge=salt['pillar.get']('ntp:lookup'))
 %}
 
-{% do default_settings.ntp.update(os_family_map) %}
+{% do default_settings.update(os_family_map) %}
 
 {% set ntp = salt['pillar.get'](
     'ntp',
-    default=default_settings.ntp,
+    default=default_settings,
     merge=True)
 %}
