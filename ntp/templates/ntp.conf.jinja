@@ -1,14 +1,14 @@
 {%- from "ntp/map.jinja" import ntp with context -%}
 
 # Default access restrictions
-{% for restrict in ntp.conf.restrict_default %}
+{% for restrict in ntp.conf.restrict_default -%}
 {{ restrict }}
-{% endfor %}
+{%- endfor %}
 
 # Servers
-{% for server in ntp.conf.servers %}
+{% for server in ntp.conf.servers -%}
 {{ server }}
-{% endfor %}
+{%- endfor %}
 
 # Drift file.  Put this in a directory which the daemon can write to.
 # No symbolic links allowed, either, since the daemon updates the file
