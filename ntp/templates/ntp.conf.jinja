@@ -1,12 +1,12 @@
 {%- from "ntp/map.jinja" import ntp with context -%}
 
 # Default access restrictions
-{% for restrict in ntp.conf.restrict_default -%}
+{%- for restrict in ntp.conf.restrict_default %}
 {{ restrict }}
 {%- endfor %}
 
 # Servers
-{% for server in ntp.conf.servers %}
+{%- for server in ntp.conf.servers %}
 {{ server }}
 {%- endfor %}
 
