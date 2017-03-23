@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=sls
+
 {% from "ntp/map.jinja" import ntp with context %}
 
 ntp:
@@ -11,8 +14,6 @@ ntp:
     - user: root
     - group: root
     - mode: 0444
-#    - context:
-#        config: {{ ntp }}
     - require:
       - pkg: {{ ntp.package }}
   

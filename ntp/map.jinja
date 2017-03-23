@@ -1,6 +1,14 @@
-{% import_yaml "ntp/defaults.yaml" as default_settings %}
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
 
-{% set os_family_map = salt['grains.filter_by']{
+{## Start with  defaults from defaults.yaml ##}
+{% import_yaml 'ntp/defaults.yaml' as default_settings %}
+
+{##
+Setup variable using grains['os_family'] based logic, only add key:values here
+that differ from whats in defaults.yaml
+##}
+{% set os_family_map = salt['grains.filter_by']({
     'Debian': {
         'package': 'ntp',
         'service': 'ntp',
@@ -13,13 +21,18 @@
         'config': '/etc/ntp.conf',
         'driftfile': '/var/lib/ntp/drift',
     },
-}
+  }
+  , grain="os_family"
+  , merge=salt['pillar.get']('ntp:lookup'))
 %}
 
+{## Merge the os_family_map to the default settings ##}
 {% do default_settings.ntp.update(os_family_map) %}
 
+{## Merge in ntp:lookup pillar ##}
 {% set ntp = salt['pillar.get'](
     'ntp',
     default=default_settings.ntp,
-    merge=True)
+    merge=True
+  )
 %}
