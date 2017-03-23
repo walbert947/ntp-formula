@@ -1,12 +1,10 @@
-{%- from "ntp/map.jinja" import ntp with context -%}
-
 # Default access restrictions
-{%- for restrict in ntp.conf.restrict_default %}
+{%- for restrict in salt['pillar.get']('ntp:conf:restricted_default') %}
 {{ restrict }}
 {%- endfor %}
 
 # Servers
-{%- for server in ntp.conf.servers %}
+{%- for server in salt['pillar.get']('ntp:conf:servers') %}
 {{ server }}
 {%- endfor %}
 
@@ -14,7 +12,7 @@
 # No symbolic links allowed, either, since the daemon updates the file
 # by creating a temporary in the same directory and then rename()'ing
 # it to the file.
-driftfile {{ ntp.driftfile }}
+driftfile {{ salt['pillar.get']('ntp:driftfile') }}
 
 # Disable the monitoring facility to prevent amplification attacks using ntpdc
 # monlist command when default restrict does not include the noquery flag. See
