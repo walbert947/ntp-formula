@@ -8,8 +8,11 @@ ntp:
     - name: {{ ntp.config }}
     - template: jinja
     - source: salt://ntp/templates/ntp.conf.jinja
+    - user: root
+    - group: root
+    - mode: 0444
     - context:
-      config: {{ salt['pillar.get']('ntp', {}) }}
+        config: {{ salt['pillar.get']('ntp', {}) }}
     - require:
       - pkg: {{ ntp.package }}
   
