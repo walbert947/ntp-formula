@@ -12,7 +12,7 @@ ntp:
     - group: root
     - mode: 0444
     - context:
-        config: {{ salt['pillar.get']('ntp', {}) }}
+        config: {{ pillar['ntp'] }}
     - require:
       - pkg: {{ ntp.package }}
   
