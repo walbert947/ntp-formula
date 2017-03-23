@@ -21,6 +21,6 @@
 
 {% set ntp = salt['pillar.get'](
     'ntp',
-    default=default_settings,
+    default=default_settings.ntp,
     merge=True)
 %}

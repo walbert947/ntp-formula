@@ -11,8 +11,8 @@ ntp:
     - user: root
     - group: root
     - mode: 0444
-    - context:
-        config: {{ pillar['ntp'] }}
+#    - context:
+#        config: {{ ntp }}
     - require:
       - pkg: {{ ntp.package }}
   
