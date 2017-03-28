@@ -37,7 +37,7 @@ ntp_keys:
     - require:
       - pkg: ntp_package
 
-ntp_service
+ntp_service:
   service.running:
     - name: {{ ntp.service }}
     - enable: true
