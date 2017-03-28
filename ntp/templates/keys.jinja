@@ -1,0 +1,7 @@
+{%- from "ntp/map.jinja" import ntp with context -%}
+
+{% for key in ntp.keys %}
+# {{ key.comment }}
+{{ key.id }} {{ key.type }} {{ key.secret }}
+
+{% endfor %}

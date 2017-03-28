@@ -1,15 +1,16 @@
-# -*- coding: utf-8 -*-
-# vim: ft=yaml
-
 ntp:
-  servers:
-    - 'server 0.pool.ntp.org iburst'
-    - 'server 1.pool.ntp.org iburst'
-    - 'server 2.pool.ntp.org iburst'
-    - 'server 3.pool.ntp.org iburst'
-  restrict_default:
-    - 'restrict default kod nomodify noquery nopeer notrap'
-    - 'restrict -6 default kod nomodify noquery nopeer notrap'
-    - 'restrict 127.0.0.1'
-    - 'restrict -6 ::1'
-  restrict: []
+  config:
+    servers:
+      - 'server 0.pool.ntp.org iburst'
+      - 'server 1.pool.ntp.org iburst'
+      - 'server 2.pool.ntp.org iburst'
+      - 'server 3.pool.ntp.org iburst'
+    restrict_default:
+      - 'restrict default kod nomodify noquery nopeer notrap'
+      - 'restrict -6 default kod nomodify noquery nopeer notrap'
+      - 'restrict 127.0.0.1'
+      - 'restrict -6 ::1'
+    restrict: []
+    orphan_mode_stratum: 5
+  daemon_options: '-g -N'
+  keys: []

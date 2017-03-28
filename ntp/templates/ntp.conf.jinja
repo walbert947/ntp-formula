@@ -1,12 +1,24 @@
 {%- from "ntp/map.jinja" import ntp with context -%}
 
+{% if ntp.keys|length > 0 %}
+# Key file containing the keys and key identifiers used when operating with
+# symmetric key cryptography.
+keys {{ ntp.keys_file }}
+{% endif %}
+
+{% if ntp.config.trusted_keys is defined and ntp.keys|length > 0 %}
+trustedkey {{ ntp.config.trusted_keys|join(' ') }}
+{% elif ntp.keys|length > 0 %}
+trustedkey {% for key in ntp.keys %}{{ key.id }} {% endfor %}
+{% endif %}
+
 # Default access restrictions
-{%- for restrict in ntp.restrict_default %}
+{%- for restrict in ntp.config.restrict_default %}
 {{ restrict }}
 {%- endfor %}
 
 # Servers
-{%- for server in ntp.servers %}
+{%- for server in ntp.config.servers %}
 {{ server }}
 {%- endfor %}
 
@@ -21,3 +33,6 @@ driftfile {{ ntp.driftfile }}
 # CVE-2013-5211 for more details.
 # Note: Monitoring will not be disabled with the limited restriction flag.
 disable monitor
+
+# Enable orphan mode
+tos orphan {{ ntp.config.orphan_mode_stratum }}

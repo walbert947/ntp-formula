@@ -1,7 +1,4 @@
-# -*- coding: utf-8 -*-
-# vim: ft=jinja
-
-{## Start with  defaults from defaults.yaml ##}
+{## Start with defaults from defaults.yaml ##}
 {% import_yaml 'ntp/defaults.yaml' as default_settings %}
 
 {##
@@ -12,13 +9,17 @@ that differ from whats in defaults.yaml
     'Debian': {
         'package': 'ntp',
         'service': 'ntp',
-        'config': '/etc/ntp.conf',
+        'conf_file': '/etc/ntp.conf',
+        'keys_file': /etc/ntp/keys',
+        'defaults': '/etc/default/ntp',
         'driftfile': '/var/lib/ntp/ntp.drift',
     },
     'RedHat': {
         'package': 'ntp',
         'service': 'ntpd',
-        'config': '/etc/ntp.conf',
+        'conf_file': '/etc/ntp.conf',
+        'keys_file': /etc/ntp/keys',
+        'defaults': '/etc/sysconfig/ntp',
         'driftfile': '/var/lib/ntp/drift',
     },
   }
