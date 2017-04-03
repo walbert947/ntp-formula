@@ -1,12 +1,11 @@
-{% from "ntp/map.jinja" import ntp with context %}
+{% from "ntp/map.jinja" import ntp_settings with context %}
 
-ntp_package:
+ntp:
   pkg.installed:
-    - name: {{ ntp.package }}
-
-ntp_config:
+    - name: {{ ntp_settings.package|yaml }}
+  
   file.managed:
-    - name: {{ ntp.conf_file }}
+    - name: {{ ntp_settings.conf_file|yaml }}
     - template: jinja
     - source: salt://ntp/templates/ntp.conf.jinja
     - user: root
@@ -14,10 +13,20 @@ ntp_config:
     - mode: '0444'
     - require:
       - pkg: ntp_package
+  
+  service.running:
+    - name: {{ ntp_settings.service|yaml }}
+    - enable: true
+    - require:
+      - pkg: ntp
+    - watch:
+      - file: ntp
+      - file: ntp_defaults
+      - file: ntp_keys
 
 ntp_defaults:
   file.managed:
-    - name: {{ ntp.defaults }}
+    - name: {{ ntp_settings.defaults|yaml }}
     - template: jinja
     - source: salt://ntp/templates/defaults.jinja
     - user: root
@@ -28,7 +37,7 @@ ntp_defaults:
   
 ntp_keys:
   file.managed:
-    - name: {{ ntp.keys_file }}
+    - name: {{ ntp_settings.keys_file|yaml }}
     - template: jinja
     - source: salt://ntp/templates/keys.jinja
     - user: root
@@ -36,14 +45,3 @@ ntp_keys:
     - mode: '0400'
     - require:
       - pkg: ntp_package
-
-ntp_service:
-  service.running:
-    - name: {{ ntp.service }}
-    - enable: true
-    - require:
-      - pkg: ntp_package
-    - watch:
-      - file: ntp_config
-      - file: ntp_defaults
-      - file: ntp_keys

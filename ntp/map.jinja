@@ -1,13 +1,13 @@
-{## Start with defaults from defaults.yaml ##}
+{# Start with defaults from defaults.yaml #}
 {% import_yaml 'ntp/defaults.yaml' as default_settings %}
 
-{##
+{#
 Setup variable using grains['os_family'] based logic, only add key:values here
 that differ from whats in defaults.yaml
-##}
+#}
 {% set os_family_map = salt['grains.filter_by']({
     'Debian': {
-        'package': 'ntp',
+        'package': ['ntp']
         'service': 'ntp',
         'conf_file': '/etc/ntp.conf',
         'keys_file': '/etc/ntp/keys',
@@ -15,11 +15,11 @@ that differ from whats in defaults.yaml
         'driftfile': '/var/lib/ntp/ntp.drift',
     },
     'RedHat': {
-        'package': 'ntp',
+        'package': ['ntp']
         'service': 'ntpd',
         'conf_file': '/etc/ntp.conf',
         'keys_file': '/etc/ntp/keys',
-        'defaults': '/etc/sysconfig/ntp',
+        'defaults': '/etc/sysconfig/ntpd',
         'driftfile': '/var/lib/ntp/drift',
     },
   }
@@ -27,11 +27,11 @@ that differ from whats in defaults.yaml
   , merge=salt['pillar.get']('ntp:lookup'))
 %}
 
-{## Merge the os_family_map to the default settings ##}
+{# Merge the os_family_map to the default settings #}
 {% do default_settings.ntp.update(os_family_map) %}
 
-{## Merge in ntp:lookup pillar ##}
-{% set ntp = salt['pillar.get'](
+{# Merge in ntp:lookup pillar #}
+{% set ntp_settings = salt['pillar.get'](
     'ntp',
     default=default_settings.ntp,
     merge=True

@@ -1,7 +1,7 @@
-{%- from "ntp/map.jinja" import ntp with context -%}
+{%- from "ntp/map.jinja" import ntp_settings with context -%}
 
 {%- if grains.os_family == 'Debian' %}
-NTPD_OPTS='{{ ntp.daemon_options }}'
+NTPD_OPTS='{{ ntp_settings.daemon_options }}'
 {%- elif grains.os_family == 'RedHat' %}
-OPTIONS='{{ ntp.daemon_options }}'
+OPTIONS='{{ ntp_settings.daemon_options }}'
 {%- endif %}

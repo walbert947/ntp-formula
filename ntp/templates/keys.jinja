@@ -1,6 +1,6 @@
-{%- from "ntp/map.jinja" import ntp with context -%}
+{%- from "ntp/map.jinja" import ntp_settings with context -%}
 
-{% for key in ntp.keys %}
+{% for key in ntp_settings.keys %}
 # {{ key.comment }}
 {{ key.id }} {{ key.type }} {{ key.secret }}
 
