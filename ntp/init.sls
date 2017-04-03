@@ -12,7 +12,7 @@ ntp:
     - group: root
     - mode: '0444'
     - require:
-      - pkg: ntp_package
+      - pkg: ntp
   
   service.running:
     - name: {{ ntp_settings.service|yaml }}
@@ -33,7 +33,7 @@ ntp_defaults:
     - group: root
     - mode: '0444'
     - require:
-      - pkg: ntp_package
+      - pkg: ntp
   
 ntp_keys:
   file.managed:
@@ -44,4 +44,4 @@ ntp_keys:
     - group: root
     - mode: '0400'
     - require:
-      - pkg: ntp_package
+      - pkg: ntp
