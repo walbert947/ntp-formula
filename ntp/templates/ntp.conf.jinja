@@ -6,7 +6,7 @@
 keys {{ ntp_settings.keys_file }}
 {% endif %}
 
-{% if ntp_settings..trusted_keys is defined and ntp_settings.keys|length > 0 %}
+{% if ntp_settings.trusted_keys is defined and ntp_settings.keys|length > 0 %}
 trustedkey {{ ntp.trusted_keys|join(' ') }}
 {% elif ntp_settings.keys|length > 0 %}
 trustedkey {% for key in ntp_settings.keys %}{{ key.id }} {% endfor %}
