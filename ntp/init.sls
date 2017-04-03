@@ -2,10 +2,10 @@
 
 ntp:
   pkg.installed:
-    - name: {{ ntp_settings.package|yaml }}
+    - name: {{ ntp_settings['package']|yaml }}
   
   file.managed:
-    - name: {{ ntp_settings.conf_file|yaml }}
+    - name: {{ ntp_settings['conf_file']|yaml }}
     - template: jinja
     - source: salt://ntp/templates/ntp.conf.jinja
     - user: root
@@ -15,7 +15,7 @@ ntp:
       - pkg: ntp
   
   service.running:
-    - name: {{ ntp_settings.service|yaml }}
+    - name: {{ ntp_settings['service']|yaml }}
     - enable: true
     - require:
       - pkg: ntp
@@ -26,7 +26,7 @@ ntp:
 
 ntp_defaults:
   file.managed:
-    - name: {{ ntp_settings.defaults|yaml }}
+    - name: {{ ntp_settings['defaults']|yaml }}
     - template: jinja
     - source: salt://ntp/templates/defaults.jinja
     - user: root
@@ -37,7 +37,7 @@ ntp_defaults:
   
 ntp_keys:
   file.managed:
-    - name: {{ ntp_settings.keys_file|yaml }}
+    - name: {{ ntp_settings['keys_file']|yaml }}
     - template: jinja
     - source: salt://ntp/templates/keys.jinja
     - user: root
