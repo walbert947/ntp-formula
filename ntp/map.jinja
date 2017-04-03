@@ -7,7 +7,7 @@ that differ from whats in defaults.yaml
 #}
 {% set os_family_map = salt['grains.filter_by']({
     'Debian': {
-        'package': ['ntp']
+        'package': ['ntp'],
         'service': 'ntp',
         'conf_file': '/etc/ntp.conf',
         'keys_file': '/etc/ntp/keys',
@@ -15,7 +15,7 @@ that differ from whats in defaults.yaml
         'driftfile': '/var/lib/ntp/ntp.drift',
     },
     'RedHat': {
-        'package': ['ntp']
+        'package': ['ntp'],
         'service': 'ntpd',
         'conf_file': '/etc/ntp.conf',
         'keys_file': '/etc/ntp/keys',
