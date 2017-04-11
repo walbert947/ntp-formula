@@ -43,5 +43,6 @@ ntp_keys:
     - user: root
     - group: root
     - mode: '0400'
+    - makedirs: true
     - require:
       - pkg: ntp
